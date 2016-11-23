@@ -11,6 +11,11 @@ public:
 	virtual int getCoinsPerCard(const int cards) const = 0;
 	virtual string getName() const = 0;
 	virtual void print(ostream& out) const = 0;
+
+	friend ostream& operator<<(ostream& o, Card& c) {
+		o << c.getName();
+		return o;
+	}
 };
 
 class Quartz : public Card {
