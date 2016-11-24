@@ -1,5 +1,5 @@
 #include "card_hierarchy.h"
-
+#include <iostream>
 /*
 Quartz
 */
@@ -24,7 +24,7 @@ string Quartz::getName() const {
 }
 
 void Quartz::print(ostream& out) const {
-
+	out << *this;
 }
 
 /*
@@ -51,7 +51,7 @@ string Hematite::getName() const {
 }
 
 void Hematite::print(ostream& out) const {
-
+	out << *this;
 }
 
 /*
@@ -78,7 +78,7 @@ string Obsidian::getName() const {
 }
 
 void Obsidian::print(ostream& out) const {
-
+	out << *this;
 }
 
 /*
@@ -105,7 +105,7 @@ string Malachite::getName() const {
 }
 
 void Malachite::print(ostream& out) const {
-
+	out << *this;
 }
 
 /*
@@ -132,7 +132,7 @@ string Turquoise::getName() const {
 }
 
 void Turquoise::print(ostream& out) const {
-
+	out << *this;
 }
 
 /*
@@ -159,7 +159,7 @@ string Ruby::getName() const {
 }
 
 void Ruby::print(ostream& out) const {
-
+	out << *this;
 }
 
 /*
@@ -186,7 +186,7 @@ string Amethyst::getName() const {
 }
 
 void Amethyst::print(ostream& out) const {
-
+	out << *this;
 }
 
 /*
@@ -207,5 +207,5 @@ string Emerald::getName() const {
 }
 
 void Emerald::print(ostream& out) const {
-
+	out << *this;
 }
