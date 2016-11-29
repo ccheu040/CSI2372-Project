@@ -1,5 +1,5 @@
 #include "card_hierarchy.h"
-#include <iostream>
+
 /*
 Quartz
 */
@@ -23,7 +23,7 @@ string Quartz::getName() const {
 	return "Quartz";
 }
 
-void Quartz::print(ostream& out) const {
+void Quartz::print(ostream& out) {
 	out << *this;
 }
 
@@ -50,7 +50,7 @@ string Hematite::getName() const {
 	return "Hematite";
 }
 
-void Hematite::print(ostream& out) const {
+void Hematite::print(ostream& out) {
 	out << *this;
 }
 
@@ -77,7 +77,7 @@ string Obsidian::getName() const {
 	return "Obsidian";
 }
 
-void Obsidian::print(ostream& out) const {
+void Obsidian::print(ostream& out) {
 	out << *this;
 }
 
@@ -104,7 +104,7 @@ string Malachite::getName() const {
 	return "Malachite";
 }
 
-void Malachite::print(ostream& out) const {
+void Malachite::print(ostream& out) {
 	out << *this;
 }
 
@@ -131,7 +131,7 @@ string Turquoise::getName() const {
 	return "Turquoise";
 }
 
-void Turquoise::print(ostream& out) const {
+void Turquoise::print(ostream& out) {
 	out << *this;
 }
 
@@ -158,7 +158,7 @@ string Ruby::getName() const {
 	return "Ruby";
 }
 
-void Ruby::print(ostream& out) const {
+void Ruby::print(ostream& out) {
 	out << *this;
 }
 
@@ -185,7 +185,7 @@ string Amethyst::getName() const {
 	return "Amethyst";
 }
 
-void Amethyst::print(ostream& out) const {
+void Amethyst::print(ostream& out) {
 	out << *this;
 }
 
@@ -206,6 +206,6 @@ string Emerald::getName() const {
 	return "Emerald";
 }
 
-void Emerald::print(ostream& out) const {
+void Emerald::print(ostream& out) {
 	out << *this;
 }

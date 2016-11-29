@@ -15,7 +15,10 @@ Card* DiscardPile::top() const {
 }
 
 void DiscardPile::print(ostream& out) const {
-
+	for (int i = pile.size() - 1; i >= 0; --i) {
+		out << *(pile[i]) << " ";
+	}
+	out << std::endl;
 }
 
 DiscardPile& DiscardPile::operator+=(Card* card) {
@@ -24,5 +27,6 @@ DiscardPile& DiscardPile::operator+=(Card* card) {
 }
 
 ostream& operator<<(ostream& out, const DiscardPile& oPile) {
+	out << *(oPile.pile.back());
 	return out;
 }

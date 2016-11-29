@@ -1,9 +1,9 @@
 #pragma once
 
-class Card;
 class CardFactory;
 
 #include <vector>
+#include "card_hierarchy.h"
 
 using std::vector;
 using std::istream;

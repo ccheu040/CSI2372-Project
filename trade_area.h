@@ -2,9 +2,7 @@
 
 class CardFactory;
 
-#include <iostream>
 #include <list>
-#include <string>
 #include "card_hierarchy.h"
 
 using std::string;

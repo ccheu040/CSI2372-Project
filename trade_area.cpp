@@ -35,5 +35,9 @@ TradeArea& TradeArea::operator+=(Card* card) {
 }
 
 ostream& operator<<(ostream& out, const TradeArea& oTrade) {
+	for (list<Card*>::const_iterator iter = oTrade.tradeArea.begin(); iter != oTrade.tradeArea.end(); ++iter) {
+		out << **iter << " ";
+	}
+	out << std::endl;
 	return out;
 }

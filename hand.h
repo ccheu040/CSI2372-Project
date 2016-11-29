@@ -1,10 +1,9 @@
 #pragma once
 
-class Card;
 class CardFactory;
 
-#include <iostream>
 #include <queue>
+#include "card_hierarchy.h"
 
 using std::queue;
 using std::istream;
@@ -19,5 +18,5 @@ public:
 	Card* top() const;
 	Hand& operator+=(Card* card);
 	Card* operator[](const int i);
-	friend ostream& operator<<(ostream& out, const Hand& hand);
+	friend ostream& operator<<(ostream& out, Hand& oHand);
 };
