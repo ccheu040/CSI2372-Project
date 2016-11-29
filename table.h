@@ -1,18 +1,23 @@
 #ifndef _Table_h_
 #define _Table_h_
 
-#include <string>
-using std::istream;
-using std::ostream;
+#include "player.h"
+#include "deck.h"
+#include "discard_pile.h"
+#include "trade_area.h"
 
 class Table {
+	Player player1;
+	Player player2;
+	Deck deck;
+	DiscardPile pile;
+	TradeArea tradeArea;
+	string winner;
 
 public:
-	Table(istream&, CardFactory*);
-	bool win(string&);
-	void print(ostream&);
-	friend ostream& operator << (ostream& out, Table& table);
-	friend istream& operator >> (istream& in, Table& table);
-
+	Table(istream&, CardFactory* factory);
+	bool win(string& winner);
+	void print(ostream& out);
+	friend ostream& operator<<(ostream& out, Table& oTable);
 };
 #endif
