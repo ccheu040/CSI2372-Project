@@ -1,5 +1,5 @@
 #include "card_hierarchy.h"
-#include <iostream>
+
 /*
 Quartz
 */

@@ -56,10 +56,9 @@ Chain<T>& Chain<T>::operator+=(Card* card) {
 
 template <class T>
 ostream& operator<<(ostream& out, const Chain<T>& oChain) {
-	out << oChain.getChainType()<<"  ";
+	out << oChain.getChainType() << "  ";
 	for (int i = 0; i < chain.size(); i++) {
-		oChain[i]->print(out);
-		out << " ";
+		out << oChain[i] << " ";
 	}
 	out << std::endl;
 	return out;

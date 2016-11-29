@@ -11,8 +11,9 @@ Card* Deck::draw() {
 }
 
 ostream& operator<<(ostream& out, const Deck& oDeck) {
-	for (int i = oDeck.deck.size()-1 ; i >= 0; --i) {
-		oDeck.deck[i]->print(out);
+	for (int i = oDeck.deck.size() - 1 ; i >= 0; --i) {
+		out << *(oDeck.deck[i]) << " ";
 	}
+	out << std::endl;
 	return out;
 }
