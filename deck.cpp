@@ -5,9 +5,12 @@ Deck::Deck(istream& in, CardFactory* factory) {
 }
 
 Card* Deck::draw() {
-	Card* top = deck.back();
-	deck.pop_back();
-	return top;
+	if (!deck.empty()) {
+		Card* top = deck.back();
+		deck.pop_back();
+		return top;
+	}
+	return nullptr;
 }
 
 ostream& operator<<(ostream& out, const Deck& oDeck) {
