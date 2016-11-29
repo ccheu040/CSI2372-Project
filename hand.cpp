@@ -36,6 +36,12 @@ Card* Hand::operator[](const int index) {
 	return card;
 }
 
-ostream& operator<<(ostream& out, const Hand& hand) {
+ostream& operator<<(ostream& out, Hand& oHand) {
+	for (int i = 0; i < oHand.hand.size(); ++i) {
+		out << *(oHand.hand.front()) << " ";
+		oHand.hand.push(oHand.hand.front());
+		oHand.hand.pop();
+	}
+	out << std::endl;
 	return out;
 }
