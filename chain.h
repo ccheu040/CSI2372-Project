@@ -12,7 +12,7 @@ using std::istream;
 using std::ostream;
 
 class Chain_Base {
-		string _dChainType;
+	string _dChainType;
 public:
 	string getChainType() {
 		return _dChainType;
@@ -21,7 +21,7 @@ public:
 
 
 template <class T>
-class Chain::public Chain_Base {
+class Chain : public Chain_Base {
 	vector<T*> chain;
 
 public:
@@ -64,7 +64,6 @@ ostream& operator<<(ostream& out, const Chain<T>& oChain) {
 	out << std::endl;
 	return out;
 }
-
 
 template <class T>
 istream& operator >> (istream& in, const Chain<T>& oChain) {
