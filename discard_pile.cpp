@@ -2,9 +2,7 @@
 #include "discard_pile.h"
 
 DiscardPile::DiscardPile(istream& in, CardFactory* factory) {
-	while (in != null) {
-		pile.push_back(in);
-	}
+	
 }
 
 DiscardPile::DiscardPile() {
@@ -12,10 +10,11 @@ DiscardPile::DiscardPile() {
 
 
 }
-
-
-
-
+DiscardPile::DiscardPile(vector<Card*> card) {
+	for (int i = 0; i < card.size(); i++) {
+		pile.push_back(card[i]);
+	}
+}
 
 Card* DiscardPile::pickUp() {
 	Card* back = pile.back();

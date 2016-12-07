@@ -7,11 +7,14 @@ Deck::Deck() {
 
 
 Deck::Deck(istream& in, CardFactory* factory) {
-	while (in != null) {
-		cards.push_back(in);
-	}
+	
 }
 
+Deck::Deck(vector<Card*> card) {
+	for (int i = 0; i < card.size(); i++) {
+		cards.push_back(card[i]);
+	}
+}
 
 Card* Deck::draw() {
 	Card* top = cards.back();

@@ -5,14 +5,17 @@
 using std::vector;
 
 Hand::Hand(istream& in, CardFactory* factory) {
-	while (in != null) {
-		hand.push(in);
-	}
+	
 }
 
 Hand::Hand() {
 
 
+}
+Hand::Hand(vector<Card*> card) {
+	for (int i = 0; i < card.size(); i++) {
+		hand.push(card[i]);
+	}
 }
 
 

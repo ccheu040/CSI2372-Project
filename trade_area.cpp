@@ -2,9 +2,7 @@
 #include "trade_area.h"
 
 TradeArea::TradeArea(istream& in, CardFactory* factory) {
-	while (in != null) {
-		tradeArea.add(in);
-	}
+	
 }
 
 TradeArea::TradeArea() {
@@ -12,7 +10,11 @@ TradeArea::TradeArea() {
 
 
 }
-s
+TradeArea::TradeArea(vector<Card*> card) {
+	for (int i = 0; i < card.size(); i++) {
+		tradeArea.push_back(card[i]);
+	}
+}
 
 
 

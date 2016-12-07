@@ -11,17 +11,18 @@ using std::ostream;
 
 using std::vector;
 class Table {
-	player* first_player;
-	player* second_player;
-	deck* deck;
+	Player* player1;
+	Player* player2;
+	Deck* deck;
 	string winner;
 	vector<Card*> cards;
 public:
 	Table(istream&, CardFactory*);
 	Table();
+	Table(vector<Card*>);
 	bool win(string&);
 	void print(ostream&);
-	friend ostream& operator << (ostream& out, Table& table);
+	friend ostream& operator<< (ostream& out, Table& table);
 
 };
 #endif

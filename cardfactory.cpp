@@ -27,10 +27,10 @@ vector<Card*> CardFactory::createGame() {
 		if (i<8) _dCard.push_back(Amethyst);
 		if (i<6) _dCard.push_back(Emerald);
 	}
-	std::random_device rd;
-	std::mt19937 g(rd());
-	std::shuffle(_dCard.begin(), _dCard.end().g);
-
+	//std::random_device rd;
+	//std::mt19937 g(rd());
+	//std::shuffle(_dCard.begin(), _dCard.end().g);
+	std::random_shuffle(_dCard.begin(), _dCard.end());
 
 	return _dCard;
 }

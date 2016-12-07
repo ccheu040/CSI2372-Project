@@ -16,9 +16,9 @@ class Player {
 	vector<Chain_Base*> _dChain;
 	Hand* hand;
 public:
-	Player(istream& in, CardFactory* factory) const;
+	Player(istream& in, CardFactory* factory);
 	Player();
-	Player(string& name) const;
+	Player(string& name);
 	string getName() const;
 	int getNumCoins() const;
 	Player& operator+=(int num);
@@ -27,8 +27,7 @@ public:
 
 	Chain_Base& operator[](int i);
 	void buyThirdChain() const;
-	void printHand(ostream& out, bool)
-
+	void printHand(ostream& out, bool);
 
 		friend ostream& operator<<(ostream& out, Player& player) {
 		out << player.getName() << "  " << player.getNumCoins() << " coins" << std::endl;
