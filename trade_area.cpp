@@ -1,8 +1,20 @@
+#include <iostream>
 #include "trade_area.h"
 
 TradeArea::TradeArea(istream& in, CardFactory* factory) {
+	while (in != null) {
+		tradeArea.add(in);
+	}
+}
+
+TradeArea::TradeArea() {
+
+
 
 }
+s
+
+
 
 bool TradeArea::legal(const Card* card) const {
 	for (list<Card*>::const_iterator iter = tradeArea.begin(); iter != tradeArea.end(); ++iter) {

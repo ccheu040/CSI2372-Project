@@ -1,62 +1,65 @@
+#include <iostream>
 #include "player.h"
 #include <exception>
-
-using std::string;
-
-Player::Player(istream& in, CardFactory* factory) {
+#include <string>
+using std::string
+Player::Player(istream& in, CardFactory* factory) const {
 
 }
 
-Player::Player(string& name) : name(name), numCoins(0), maxNumChains(2) {}
+Player::Player() {
 
+}
+
+
+
+Player::Player(string& name) const {
+	name = name;
+	coin = 0;
+	numChain = 0;
+	maxNumChain = 2;
+}
 string Player::getName() const {
 	return name;
 }
-
 int Player::getNumCoins() const {
-	return numCoins;
+	return coin;
 }
-
 Player& Player::operator+=(int i) {
-	numCoins += i;
+	this->coin += i;
 	return *this;
 }
-
 int Player::getMaxNumChains() const {
-	return maxNumChains;
+	return maxNumChain;
 }
-
 int Player::getNumChains() const {
-	return _dChain.size();
+	return numChain;
 }
-
-Chain_Base& Player::operator[](int i) {
+Chain& Player::operator[](int i) {
 	return *_dChain[i];
 }
-
-void Player::buyThirdChain() {
-//	try {
-		if (maxNumChains = 3) {
-			throw "MaxChainExistException";
+void Player::buyThirdChain() const {
+	try {
+		if (maxNumChain = 3) {
+			throw MaxChainExistException;
 		}
-		else if (numCoins < 2) {
-			throw "NotEnoughCoinsException";
+		else if (coin < 2) {
+			throw NoEnoughCoinsException;
 		}
 		else {
-			maxNumChains++;
+			maxNumChain++;
 		}
-//	}
-//	catch (MaxChainExistException& e) {
-//		std::cout << e.what()<<std::endl;
-//	}
-//	catch (NotEnoughCoinsException& e) {
-//		std::cout << e.what() << std::endl;
-//	}
+	}
+	catch (MaxChainExistException& e) {
+		std::cout << e.what() << std::endl;
+	}
+	catch (NoEnoughCoinsException& e) {
+		std::cout << e.what() << std::endl;
+	}
 }
-
 void Player::printHand(ostream& out, bool p) {
 	if (p) {
-		out << *hand;
+		out << ;
 	}
 	else {
 		std::cout << hand->top() << std::endl;

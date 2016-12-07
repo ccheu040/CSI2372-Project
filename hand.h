@@ -14,6 +14,7 @@ class Hand {
 
 public:
 	Hand(istream& in, CardFactory* factory);
+	Hand();
 	Card* play();
 	Card* top() const;
 	Hand& operator+=(Card* card);

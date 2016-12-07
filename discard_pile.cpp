@@ -1,8 +1,21 @@
+#include <iostream>
 #include "discard_pile.h"
 
 DiscardPile::DiscardPile(istream& in, CardFactory* factory) {
+	while (in != null) {
+		pile.push_back(in);
+	}
+}
+
+DiscardPile::DiscardPile() {
+
+
 
 }
+
+
+
+
 
 Card* DiscardPile::pickUp() {
 	Card* back = pile.back();

@@ -14,6 +14,7 @@ class DiscardPile {
 
 public:
 	DiscardPile(istream& in, CardFactory* factory);
+	DiscardPile();
 	Card* pickUp();
 	Card* top() const;
 	void print(ostream& out) const;

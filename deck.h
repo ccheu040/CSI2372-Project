@@ -10,9 +10,9 @@ using std::istream;
 using std::ostream;
 
 class Deck {
-	vector<Card*> deck;
-
+	vector<Card*> cards;
 public:
+	Deck();
 	Deck(istream& in, CardFactory* factory);
 	Card* draw();
 	friend ostream& operator<<(ostream& out, const Deck& oDeck);
