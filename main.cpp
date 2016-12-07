@@ -59,16 +59,16 @@ main() {
 			myfile << "Player1 \n";
 			myfile << player1.getName();
 			myfile << player1.getNumCoins();
-			myfile << player1.getNumChain();
-			for (int i = 0; i < player1.getNumChain(); i++) {
+			myfile << player1.getNumChains();
+			for (int i = 0; i < player1.getNumChains(); i++) {
 				myfile << player1._dChain[i];
 			}
 			myfile << player1.printHand();
 			myfile << "Player2 \n";
 			myfile << player2.getName();
 			myfile << player2.getNumCoins();
-			myfile << player2.getNumChain();
-			for (int i = 0; i < player2.getNumChain(); i++) {
+			myfile << player2.getNumChains();
+			for (int i = 0; i < player2.getNumChains(); i++) {
 				myfile << player2._dChain[i];
 			}
 			myfile << player2.printHand();
@@ -79,7 +79,7 @@ main() {
 CardFactory loadfile(string fileName) {
 	string name;
 	string stringCards;
-	CardFactory factory
+	CardFactory factory;
 	Player player1;
 	Player player2;
 	std::ifstream infile;
@@ -100,10 +100,10 @@ CardFactory loadfile(string fileName) {
 		}
 		cards = stringToCard(stringCards);
 		//to do the constructor for each class
-		if (name == "Deck")  Deck(cards, factory);
-		else if (name == "DiscardPile") DiscardPile(cards, factory);
-		else if (name == "TradeArea") TradeArea(cards, factory);
-		else if (name == "Table") Table(cards, factory);
+		if (name == "Deck")  Deck(cards);
+		else if (name == "DiscardPile") DiscardPile(cards);
+		else if (name == "TradeArea") TradeArea(cards);
+		else if (name == "Table") Table(cards);
 		else if (name == "Player1") {
 			player1.name = cards;
 			string coins;

@@ -47,7 +47,8 @@ void Player::buyThirdChain() const {
 			std::cout << "Does not have enough coin";;
 		}
 		else {
-			maxNumChain++;
+			maxNumChain = 3;
+			coin = coin - 2;
 		}
 	}
 	

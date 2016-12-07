@@ -15,6 +15,14 @@ Table::Table(vector<Card*> card){
 	}
 }
 
+Table::Table(Player* player1, Player* player2, Deck* deck, DiscardPile* discardPile, TradeArea* tradeArea) {
+	player1 = player1;
+	player2 = player2;
+	deck = deck;
+	discardPile = discardPile;
+	tradeArea = tradeArea;
+}
+
 bool Table::win(string& player) {
 	if (deck->draw() == NULL) {
 		if (player1->getNumCoins() > player2->getNumCoins()) {

@@ -10,6 +10,7 @@ using std::list;
 using std::istream;
 using std::ostream;
 using std::vector;
+using std::endl;
 class TradeArea {
 	list<Card*> tradeArea;
 public:
