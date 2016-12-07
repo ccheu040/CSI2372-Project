@@ -14,7 +14,7 @@ Table::Table() {
 
 
 bool Table::win(string& player) {
-	if (deck->draw() == null) {
+	if (deck->draw() == NULL) {
 		if (first_player->getNumCoins() > second_player->getNumCoins()) {
 			winner = first_player.getName();
 		}
