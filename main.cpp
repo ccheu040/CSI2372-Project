@@ -82,7 +82,43 @@ int main() {
 				}
 				if (!played) {
 					if (player.getNumChains() < player.getMaxNumChains()) {
-
+						cout << "Do you want to start a new chain for " << card->getName() << "? [Y/N]" << endl;
+						getline(cin, input);
+						while (input != "Y" && input != "y" && input != "N" && input != "n") {
+							cout << "Please enter a valid response." << endl;
+							cout << "Do you want to start a new chain for " << card->getName() << "? [Y/N]" << endl;
+							getline(cin, input);
+						}
+						if (input == "Y" || input == "y") {
+							cout << "Adding " << card->getName() << " to empty chain." << endl;
+							if (card->getName() == "Quartz") {
+								player.getChains().push_back(new Chain<Quartz>(dynamic_cast<Quartz*>(card)));
+							}
+							else if (card->getName() == "Hematite") {
+								player.getChains().push_back(new Chain<Hematite>(dynamic_cast<Hematite*>(card)));
+							}
+							else if (card->getName() == "Obsidian") {
+								player.getChains().push_back(new Chain<Obsidian>(dynamic_cast<Obsidian*>(card)));
+							}
+							else if (card->getName() == "Malachite") {
+								player.getChains().push_back(new Chain<Malachite>(dynamic_cast<Malachite*>(card)));
+							}
+							else if (card->getName() == "Turquoise") {
+								player.getChains().push_back(new Chain<Turquoise>(dynamic_cast<Turquoise*>(card)));
+							}
+							else if (card->getName() == "Ruby") {
+								player.getChains().push_back(new Chain<Ruby>(dynamic_cast<Ruby*>(card)));
+							}
+							else if (card->getName() == "Amethyst") {
+								player.getChains().push_back(new Chain<Amethyst>(dynamic_cast<Amethyst*>(card)));
+							}
+							else if (card->getName() == "Emerald") {
+								player.getChains().push_back(new Chain<Emerald>(dynamic_cast<Emerald*>(card)));
+							}
+						}
+						else {
+							cout << "Discarding " << card->getName() << "." << endl;
+						}
 					}
 				}
 			}
