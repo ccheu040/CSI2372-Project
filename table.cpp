@@ -53,6 +53,12 @@ void Table::print(ostream& out) {
 }
 
 ostream& operator<<(ostream& out, Table& oTable) {
-	out << oTable.players.front() << oTable.players.back() << oTable.pile << oTable.tradeArea;
+	out << oTable.players.front() << oTable.players.back();
+	if (!oTable.pile.getCards().empty()) {
+		out << oTable.pile;
+	}
+	if (!oTable.tradeArea.getCards().empty()) {
+		out << oTable.tradeArea;
+	}
 	return out;
 }

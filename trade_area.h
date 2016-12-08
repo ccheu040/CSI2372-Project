@@ -21,5 +21,4 @@ public:
 	list<Card*>& getCards();
 	TradeArea& operator+=(Card* card);
 	friend ostream& operator<<(ostream& out, const TradeArea& oTradeArea);
-	list<Card*> getTradeAreaCard();
 };

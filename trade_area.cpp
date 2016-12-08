@@ -46,6 +46,3 @@ ostream& operator<<(ostream& out, const TradeArea& oTrade) {
 	out << std::endl;
 	return out;
 }
-list<Card*> TradeArea::getTradeAreaCard() {
-	return tradeArea;
-}
