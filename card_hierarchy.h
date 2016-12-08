@@ -7,6 +7,7 @@ using std::string;
 using std::ostream;
 
 class Card {
+
 private:
 	Card(const Card& card) {};
 	Card& operator=(const Card& card) {};

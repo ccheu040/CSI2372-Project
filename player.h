@@ -14,7 +14,6 @@ class Player {
 	int maxNumChain;
 	vector<Chain_Base*> _dChain;
 	Hand hand;
-
 public:
 	Player() {};
 	Player(const string& name);
@@ -30,7 +29,12 @@ public:
 	Chain_Base& operator[](int i);
 	void buyThirdChain();
 	void printHand(ostream& out, bool p);
-
-	friend ostream& operator<<(ostream& out, Player& player);
+	friend ostream& operator<<(ostream& out, Player& player) {
+		out << player.getName() << "  " << player.getNumCoins() << " coins" << std::endl;
+		for (int i = 0; i < player._dChain.size(); i++) {
+			out << *player._dChain[i] << "\t" << ;
+		}
+		return out;
+	}
 };
 #endif

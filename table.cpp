@@ -11,7 +11,7 @@ Table::Table(const string& name1, const string& name2) {
 }
 
 Table::Table(istream& in, CardFactory* factory) {
-	
+
 }
 
 bool Table::win(string& winner) {
@@ -30,7 +30,6 @@ bool Table::win(string& winner) {
 		return false;
 	}
 }
-
 
 vector<Player>& Table::getPlayers() {
 	return players;
@@ -53,12 +52,5 @@ void Table::print(ostream& out) {
 }
 
 ostream& operator<<(ostream& out, Table& oTable) {
-	out << oTable.players.front() << oTable.players.back();
-	if (!oTable.pile.getCards().empty()) {
-		out << oTable.pile;
-	}
-	if (!oTable.tradeArea.getCards().empty()) {
-		out << oTable.tradeArea;
-	}
-	return out;
+	out << oTable.players.front() << oTable.players.back() << oTable.pile << oTable.tradeArea;
 }
