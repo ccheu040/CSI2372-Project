@@ -14,6 +14,7 @@ class Table {
 	TradeArea tradeArea;
 
 public:
+	Table() {};
 	Table(const string& name1, const string& name2);
 	Table(istream& in, CardFactory* factory);
 	bool win(string& winner);
