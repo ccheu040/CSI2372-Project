@@ -32,7 +32,7 @@ class Chain : public Chain_Base {
 
 public:
 	Chain(const T* t);
-	Chain(istream& in, CardFactory* factory) const;
+	Chain(istream& in, CardFactory* factory);
 	int sell() const;
 	int getNumCards() const;
 	Chain<T>& operator+=(Card* card);
@@ -44,7 +44,7 @@ Chain<T>::Chain(const T* t) : Chain_Base(t->getName()) {
 }
 
 template <class T>
-Chain<T>::Chain(istream& in, CardFactory* factory) const {
+Chain<T>::Chain(istream& in, CardFactory* factory) {
 	
 }
 
@@ -54,7 +54,7 @@ int Chain<T>::sell() const {
 }
 
 template <class T>
-int CHain<T>::getNumCards() const {
+int Chain<T>::getNumCards() const {
 	return chain.size();
 }
 
@@ -69,13 +69,3 @@ Chain<T>& Chain<T>::operator+=(Card* card) {
 		std::cout << "IllegalType" << std::endl;
 	}
 }
-
-//template <class T>
-//ostream& operator<<(ostream& out, const Chain<T>& oChain) {
-//	out << oChain.getChainType() << "\t";
-//	for (int i = 0; i < chain.size(); i++) {
-//		out << oChain[i] << " ";
-//	}
-//	out << std::endl;
-//	return out;
-//}
