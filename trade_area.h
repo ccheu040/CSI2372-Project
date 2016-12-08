@@ -17,6 +17,7 @@ public:
 	bool legal(const Card* card) const;
 	Card* trade(const string name);
 	int numCards() const;
+	list<Card*>& getCards();
 	TradeArea& operator+=(Card* card);
 	friend ostream& operator<<(ostream& out, const TradeArea& oTradeArea);
 };
