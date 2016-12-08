@@ -17,12 +17,9 @@ Deck::Deck(vector<Card*> card) {
 }
 
 Card* Deck::draw() {
-	if (!cards.empty()) {
-		Card* top = cards.back();
-		cards.pop_back();
-		return top;
-	}
-	return nullptr;
+	Card* top = cards.back();
+	cards.pop_back();
+	return top;
 }
 
 ostream& operator<<(ostream& out, const Deck& oDeck) {
@@ -31,4 +28,7 @@ ostream& operator<<(ostream& out, const Deck& oDeck) {
 	}
 	out << std::endl;
 	return out;
+}
+vector<Card*> Deck::getDeckCard() {
+	return cards;
 }

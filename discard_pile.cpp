@@ -42,3 +42,7 @@ ostream& operator<<(ostream& out, const DiscardPile& oPile) {
 	out << *(oPile.pile.back());
 	return out;
 }
+
+vector<Card*> DiscardPile::getPileCard() {
+	return pile;
+}

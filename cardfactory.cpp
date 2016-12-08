@@ -3,34 +3,49 @@
 #include <algorithm>
 #include "cardfactory.h"
 CardFactory* CardFactory::getFactory() {
-
+	static CardFactory factory;
+	return &factory;
 }
 Deck CardFactory::getDeck() {
+	Deck deck;
 
-}
-vector<Card*> CardFactory::createGame() {
-	Quartz* Quartz;
-	Hematite* Hematite;
-	Obsidian* Obsidian;
-	Malachite* Malachite;
-	Turquoise* Turquoise;
-	Ruby* Ruby;
-	Amethyst* Amethyst;
-	Emerald* Emerald;
 	for (int i = 0; i < 20; i++) {
-		_dCard.push_back(Quartz);
-		if (i<18) _dCard.push_back(Hematite);
-		if (i<16) _dCard.push_back(Obsidian);
-		if (i<14) _dCard.push_back(Malachite);
-		if (i<12) _dCard.push_back(Turquoise);
-		if (i<10) _dCard.push_back(Ruby);
-		if (i<8) _dCard.push_back(Amethyst);
-		if (i<6) _dCard.push_back(Emerald);
+		deck.push_back(new Quartz());
+		if (i<18) deck.push_back(new Hematite());
+		if (i<16) deck.push_back(new Obsidian());
+		if (i<14) deck.push_back(new Malachite());
+		if (i<12) deck.push_back(new Turquoise());
+		if (i<10) deck.push_back(new Ruby());
+		if (i<8) deck.push_back(new Amethyst());
+		if (i<6) deck.push_back(new Emerald());
 	}
-	//std::random_device rd;
-	//std::mt19937 g(rd());
-	//std::shuffle(_dCard.begin(), _dCard.end().g);
-	std::random_shuffle(_dCard.begin(), _dCard.end());
-
-	return _dCard;
+	std::random_shuffle(deck.begin(), deck.end());
+}
+Card* CardFactory::createCard(const string& name) {
+	Card* card = nullptr;
+	if (name == "Quartz") {
+		card = new Quartz();
+	}
+	else if (name == "Hematite") {
+		card = new Hematite();
+	}
+	else if (name == "Obsidian") {
+		card = new Obsidian();
+	}
+	else if (name == "Malachite") {
+		card = new Malachite();
+	}
+	else if (name == "Turquoise") {
+		card = new Turquoise();
+	}
+	else if (name == "Ruby") {
+		card = new Ruby();
+	}
+	else if (name == "Amethyst") {
+		card = new Amethyst();
+	}
+	else if (name == "Emerald") {
+		card = new Emerald();
+	}
+	return card;
 }

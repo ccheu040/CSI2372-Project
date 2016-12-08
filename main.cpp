@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstring>
 #include <sstream>
+#include <queue>
 #include "cardfactory.h"
 #include "chain.h"
 #include "deck.h"
@@ -21,138 +22,74 @@ using std::endl;
 using std::cin;
 main() {
 	int selection;
-	bool pauseGame = false;
-	Deck deck;
-	CardFactory factory;
-	DiscardPile pile;
-	TradeArea TradeArea;
-	Table table;
-	Player player1;
-	Player player2;
+	bool pausegame = false;
+	Deck* deck;
+	CardFactory* factory;
+	DiscardPile* pile;
+	TradeArea* TradeArea;
+	Table* table;
+	Player* player1;
+	Player* player2;
+	queue<string> lastGame;
 	cout << "Do you want to load a pause game?" << endl;
 	cout << "If you want, enter 1; else, enter 2" << endl;
 	cin >> selection;
 	if (selection == 1) {
-		string fileName;
-		cout << "Enter the filename you want to load" << endl;
-		cin >> fileName;
-		factory = loadfile(fileName);
+		
+		lastGame = loadfile();
 	}
 	else {
 		factory = start_newGame();
 	}
 	while (deck.size() > 0) {
-		if (pauseGame) {
-			string fileName;
-			cout << "Enter the filename you want to save" << endl;
-			cin >> fileName;
-			std::ofstream myfile;
-			myfile.open(fileName);
-			myfile << "Deck \n";
-			myfile << deck << ;
-			myfile << "DiscardPile \n";
-			myfile << pile << ;
-			myfile << "TradeArea \n";
-			myfile << TradeArea << ;
-			myfile << "Table \n";
-			myfile << table << ;
-			myfile << "Player1 \n";
-			myfile << player1.getName();
-			myfile << player1.getNumCoins();
-			myfile << player1.getNumChains();
-			for (int i = 0; i < player1.getNumChains(); i++) {
-				myfile << player1._dChain[i];
-			}
-			myfile << player1.printHand();
-			myfile << "Player2 \n";
-			myfile << player2.getName();
-			myfile << player2.getNumCoins();
-			myfile << player2.getNumChains();
-			for (int i = 0; i < player2.getNumChains(); i++) {
-				myfile << player2._dChain[i];
-			}
-			myfile << player2.printHand();
-		}
+		if (pausegame) pauseGame(player1, player2, deck, pile, TradeArea);
 	}
 }
 
-CardFactory loadfile(string fileName) {
-	string name;
-	string stringCards;
-	CardFactory factory;
-	Player player1;
-	Player player2;
-	std::ifstream infile;
-	infile.open(fileName);
-	vector<Card*> cards;
-	Deck Deck;
-	DiscardPile DiscardPile;
-	TradeArea TradeArea;
-	Table Table;
-	while (!infile.eof) {
-		for (int i = o; i < 2; i++) {
-			if (i == 1) {
-				getline(infile, name);
-			}
-			else {
-				getline(infile, stringCards);
-			}
-		}
-		cards = stringToCard(stringCards);
-		//to do the constructor for each class
-		if (name == "Deck")  Deck(cards);
-		else if (name == "DiscardPile") DiscardPile(cards);
-		else if (name == "TradeArea") TradeArea(cards);
-		else if (name == "Table") Table(cards);
-		else if (name == "Player1") {
-			player1.name = cards;
-			string coins;
-			getline(infile, coins);
-			int coin;
-			std::istringstream(coins) >> coin;
-			player1.coin = coin;
-			string chains;
-			int chain;
-			getline(infile, chains);
-			std::istringstream(chains) >> chain;
-			player1.numChain = chain;
-			for (int a = 0; a < chain; a++) {
-				string dchain;
-				getline(infile, dchain);
-				cards = stringToCard(dchain);
-				player1._dChain[a](cards, factory);
-			}
-			getline(infile, stringCards);
-			cards = stringToCard(stringCards);
-			player1.hand(cards, factory);
-		}
-		else if (name == "Player2") {
-			player2.name = cards;
-			string coins;
-			getline(infile, coins);
-			int coin;
-			std::istringstream(coins) >> coin;
-			player2.coin = coin;
-			string chains;
-			int chain;
-			getline(infile, chains);
-			std::istringstream(chains) >> chain;
-			player2.numChain = chain;
-			for (int a = 0; a < chain; a++) {
-				string dchain;
-				getline(infile, dchain);
-				cards = stringToCard(dchain);
-				player2._dChain[a](cards, factory);
-			}
-			getline(infile, stringCards);
-			cards = stringToCard(stringCards);
-			player2.hand(cards, factory);
-		}
-
+queue<string> loadfile() {
+	queue<string> s;
+	string line;
+	std::ifstream file;
+	file.open("SavingGame.txt");
+	while (getline(file, line)) {
+		s.push(line);
 	}
-	infile.close();
+	return s;
+}
 
-	return factory;
+void pauseGame(Player* player1, Player* player2, Deck* deck, DiscardPile* discardPile, TradeArea* tradeArea) {
+	std::ofstream file;
+	file.open("SavingGame.txt");
+	string s = player1->getName();
+	file << s;
+	queue<Card*> cards = player1->getHand()->getHandCard();
+	Card* card;
+	while (!cards.empty()) {
+		card = cards.pop();
+		file << card->getName();
+	}
+	s = player2->getName();
+	file << s;
+	while (!cards.empty()) {
+		card= cards.pop();
+		file << card->getName();
+	}
+	cards = deck->getDeckCard();
+	while (!cards.empty()) {
+		card = cards.pop();
+		file << card->getName();
+	}
+	cards = discardPile->getPileCard();
+	while (!cards.empty()) {
+		card = cards.pop();
+		file << card->getName();
+	}
+	list<Card*> car = tradeArea->getTradeAreaCard();
+	while (!cards.empty()) {
+		card = car.pop_front();
+		file << card->getName();
+	}
+	file.close();
 }
 
 CardFactory start_newGame() {
@@ -174,7 +111,7 @@ CardFactory start_newGame() {
 	return factory;
 }
 
-vector<Card*> stringToCard(string stringCard) {
+/*vector<Card*> stringToCard(string stringCard) {
 	vector<Card*> cards;
 	Quartz* Quartz;
 	Hematite* Hematite;
@@ -213,4 +150,4 @@ vector<Card*> stringToCard(string stringCard) {
 		}
 	}
 	return cards;
-}
+}*/

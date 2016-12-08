@@ -21,4 +21,5 @@ public:
 	void print(ostream& out) const;
 	DiscardPile& operator+=(Card* card);
 	friend ostream& operator<<(ostream& out, const DiscardPile& oPile);
+	vector<Card*> getPileCard();
 };

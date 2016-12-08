@@ -1,26 +1,22 @@
 #ifndef _Player_h_
 #define _Player_h_
-
 #include "chain.h"
 #include "hand.h"
 #include <iostream>
 #include <string>
 #include <vector>
-
 using std::istream;
-using std::ostream;
 using std::string;
-
+using std::ostream;
 class Player {
 	string name;
 	int coins;
 	int maxNumChain;
 	vector<Chain_Base*> _dChain;
 	Hand* hand;
-
 public:
-	Player() = default;
-	Player(string& name);
+	Player() {};
+	Player(const string& name);
 	Player(istream& in, CardFactory* factory);
 	string getName() const;
 	int getNumCoins() const;
@@ -29,12 +25,12 @@ public:
 	int getNumChains() const;
 
 	Chain_Base& operator[](int i);
-	void buyThirdChain();
+	void buyThirdChain() const;
 	void printHand(ostream& out, bool);
-
+	Hand* getHand();
 	friend ostream& operator<<(ostream& out, Player& player) {
 		out << player.getName() << "  " << player.getNumCoins() << " coins" << std::endl;
-		for (int i = 0; i < _dChain.size(); i++) {
+		for (int i = 0; i < *_dChain.size(); i++) {
 			out << *_dChain[i];
 		}
 		return out;

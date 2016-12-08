@@ -22,4 +22,5 @@ public:
 	Hand& operator+=(Card* card);
 	Card* operator[](const int i);
 	friend ostream& operator<<(ostream& out, Hand& oHand);
+	queue<Card*> getHandCard();
 };

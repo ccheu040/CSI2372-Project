@@ -57,3 +57,6 @@ ostream& operator<<(ostream& out, Hand& oHand) {
 	out << std::endl;
 	return out;
 }
+queue<Card*> Hand::getHandCard() {
+	return hand;
+}

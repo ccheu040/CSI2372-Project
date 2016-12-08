@@ -1,10 +1,13 @@
 #ifndef _Table_h_
 #define _Table_h_
 
+#include <vector>
+#include <string>
 #include "player.h"
 #include "deck.h"
 #include "discard_pile.h"
 #include "trade_area.h"
+#include "cardfactory.h"
 
 using std::istream;
 using std::ostream;
@@ -15,13 +18,12 @@ class Table {
 	Player* player2;
 	Deck* deck;
 	string winner;
-	vector<Card*> cards;
 public:
+
+	Table(const string& name1, const string& name2);
 	Table(istream&, CardFactory*);
-	Table();
-	Table(vector<Card*>);
-	Table(Player* player1, Player* player2, Deck* deck, DiscardPile* discardPile, TradeArea* tradeArea);
 	bool win(string&);
 	void print(ostream&);
+	friend ostream& operator<<(ostream& out, Table& oTable);
 };
 #endif
