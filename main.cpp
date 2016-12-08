@@ -79,7 +79,7 @@ int main() {
 					bool played = false;
 					Card* card = tradeArea.trade(tradeArea.getCards().front()->getName());
 					// Add cards to chain or discard
-					for (int i = 0; i < player.getNumChains; ++i) {
+					for (int i = 0; i < player.getNumChains(); ++i) {
 						Chain_Base* chain = &player[i];
 						if (card->getName() == chain->getChainType()) {
 							cout << "Adding " << *card << " from trade area to chain." << endl;
@@ -286,7 +286,7 @@ int main() {
 					}
 				} while (input == "Y" || input == "y");
 
-				if (player.getHand().getNumCards != 0) {
+				if (player.getHand().getNumCards() != 0) {
 					cout << player.getHand();
 					cout << "Do you want to discard a card from your hand? [Y/N]" << endl;
 					getline(cin, input);
@@ -297,11 +297,11 @@ int main() {
 					}
 					if (input == "Y" || input == "y") {
 						int index;
-						cout << "Which card do you want to discard? [1-" << player.getHand().getNumCards << "]" << endl;
+						cout << "Which card do you want to discard? [1-" << player.getHand().getNumCards() << "]" << endl;
 						cin >> index;
 						while (index < 1 || index > player.getNumChains()) {
 							cout << "Please enter a valid number." << endl;
-							cout << "Which card do you want to discard? [1-" << player.getHand().getNumCards << "]" << endl;
+							cout << "Which card do you want to discard? [1-" << player.getHand().getNumCards() << "]" << endl;
 							cin >> index;
 						}
 						Card* card = player.getHand()[index - 1];

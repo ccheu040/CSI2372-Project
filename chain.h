@@ -14,6 +14,9 @@ using std::ostream;
 class Chain_Base {
 	string _dChainType;
 public:
+	Chain_Base(string name) {
+		_dChainType = name;
+	}
 	string getChainType() {
 		return _dChainType;
 	}
@@ -31,7 +34,7 @@ class Chain : public Chain_Base {
 	vector<T*> chain;
 
 public:
-	Chain(const T* t);
+	Chain(T* t);
 	Chain(istream& in, CardFactory* factory);
 	int sell() const;
 	int getNumCards() const;
@@ -39,7 +42,7 @@ public:
 };
 
 template <class T>
-Chain<T>::Chain(const T* t) : Chain_Base(t->getName()) {
+Chain<T>::Chain(T* t) : Chain_Base(t->getName()) {
 	chain.push_back(t);
 }
 
