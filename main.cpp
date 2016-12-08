@@ -328,9 +328,9 @@ void pauseGame(Table table) {
 		ofs << c;
 	}
 	ofs << "\n";
-	while (!pile.getPileCard().empty()) {
-		string p = pile.getPileCard().back()->getName();
-		pile.getPileCard().pop_back();
+	while (!pile.getCards().empty()) {
+		string p = pile.getCards().back()->getName();
+		pile.getCards().pop_back();
 		ofs << p;
 	}
 	ofs << "\n";
