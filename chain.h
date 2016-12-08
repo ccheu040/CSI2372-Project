@@ -18,6 +18,7 @@ public:
 		return _dChainType;
 	}
 	virtual int sell() const = 0;
+	virtual int getNumCards() const = 0;
 	friend ostream& operator<<(ostream& out, Chain_Base& chain) {
 		out << chain.getChainType();
 		return out;
@@ -33,8 +34,8 @@ public:
 	Chain(const T* t);
 	Chain(istream& in, CardFactory* factory) const;
 	int sell() const;
+	int getNumCards() const;
 	Chain<T>& operator+=(Card* card);
-	//friend ostream& operator<<(ostream& out, const Chain<T>& oChain);
 };
 
 template <class T>
@@ -50,6 +51,11 @@ Chain<T>::Chain(istream& in, CardFactory* factory) const {
 template <class T>
 int Chain<T>::sell() const {
 	return chain[0]->getCoinsPerCard(chain.size());
+}
+
+template <class T>
+int CHain<T>::getNumCards() const {
+	return chain.size();
 }
 
 template <class T>

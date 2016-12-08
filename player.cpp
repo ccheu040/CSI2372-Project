@@ -54,9 +54,13 @@ void Player::printHand(ostream& out, bool p) {
 }
 
 ostream& operator<<(ostream& out, Player& player) {
-	out << player.getName() << "  " << player.getNumCoins() << " coins" << std::endl;
-	for (int i = 0; i < player._dChain.size(); i++) {
-		out << *player._dChain[i] << "\t" << ;
+	out << player.getName() << "\t" << player.getNumCoins() << " coins" << std::endl;
+	for (int i = 0; i < player._dChain.size(); ++i) {
+		out << *player._dChain[i] << "\t";
+		for (int j = 0; j < player._dChain[i]->getNumCards(); ++i) {
+			out << player._dChain[i]->getChainType().at(0) << " ";
+		}
+		out << std::endl;
 	}
 	return out;
 }
