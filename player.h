@@ -19,8 +19,8 @@ class Player {
 	Hand* hand;
 
 public:
-	Player() = default;
-	Player(string& name);
+	Player() {};
+	Player(const string& name);
 	Player(istream& in, CardFactory* factory);
 	string getName() const;
 	int getNumCoins() const;

@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(string& name) : name(name), coins(0), maxNumChain(2) {}
+Player::Player(const string& name) : name(name), coins(0), maxNumChain(2) {}
 
 Player::Player(istream& in, CardFactory* factory){
 

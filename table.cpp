@@ -1,5 +1,11 @@
 #include "table.h"
 
+Table::Table(const string& name1, const string& name2) {
+	player1 = Player(name1);
+	player2 = Player(name2);
+	deck = CardFactory::getFactory()->getDeck();
+}
+
 Table::Table(istream& in, CardFactory* factory) {
 	
 }

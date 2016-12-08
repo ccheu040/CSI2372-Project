@@ -5,6 +5,7 @@
 #include "deck.h"
 #include "discard_pile.h"
 #include "trade_area.h"
+#include "cardfactory.h"
 
 class Table {
 	Player player1;
@@ -15,7 +16,7 @@ class Table {
 	string winner;
 
 public:
-	Table() = default;
+	Table(const string& name1, const string& name2);
 	Table(istream& in, CardFactory* factory);
 	bool win(string& winner);
 	void print(ostream& out);
