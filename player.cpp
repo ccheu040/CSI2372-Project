@@ -27,21 +27,17 @@ int Player::getNumChains() const {
 	return _dChain.size();
 }
 
+Hand& Player::getHand() {
+	return hand;
+}
+
 Chain_Base& Player::operator[](int i) {
 	return *_dChain[i];
 }
 
 void Player::buyThirdChain() {
-	if (maxNumChain == 3) {
-		std::cout << "You already have three chains" << std::endl;
-	}
-	else if (coins < 3) {
-		std::cout << "You do not have enough coins" << std::endl;
-	}
-	else {
-		maxNumChain = 3;
-		coins = coins - 3;
-	}
+	maxNumChain = 3;
+	coins = coins - 3;
 }
 	
 void Player::printHand(ostream& out, bool p) {
@@ -49,6 +45,6 @@ void Player::printHand(ostream& out, bool p) {
 		out << hand;
 	}
 	else {
-		std::cout << hand->top() << std::endl;
+		std::cout << hand.top() << std::endl;
 	}
 }

@@ -1,9 +1,13 @@
 #include "table.h"
 
 Table::Table(const string& name1, const string& name2) {
-	player1 = Player(name1);
-	player2 = Player(name2);
+	players.push_back(Player(name1));
+	players.push_back(Player(name2));
 	deck = CardFactory::getFactory()->getDeck();
+	for (int i = 0; i < 5; ++i) {
+		players.front().getHand() += deck.draw();
+		players.back().getHand() += deck.draw();
+	}
 }
 
 Table::Table(istream& in, CardFactory* factory) {
@@ -11,6 +15,8 @@ Table::Table(istream& in, CardFactory* factory) {
 }
 
 bool Table::win(string& winner) {
+	Player player1 = players.front();
+	Player player2 = players.back();
 	if (!deck.draw()) {
 		if (player1.getNumCoins() > player2.getNumCoins()) {
 			winner = player1.getName();
@@ -25,10 +31,27 @@ bool Table::win(string& winner) {
 	}
 }
 
-void Table::print(ostream& out) {
 
+vector<Player>& Table::getPlayers() {
+	return players;
+}
+
+Deck& Table::getDeck() {
+	return deck;
+}
+
+DiscardPile& Table::getPile() {
+	return pile;
+}
+
+TradeArea& Table::getTradeArea() {
+	return tradeArea;
+}
+
+void Table::print(ostream& out) {
+	out << *this;
 }
 
 ostream& operator<<(ostream& out, Table& oTable) {
-	out << oTable.player1 << oTable.player2 << oTable.pile << oTable.tradeArea;
+	out << oTable.players.front() << oTable.players.back() << oTable.pile << oTable.tradeArea;
 }

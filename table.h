@@ -8,17 +8,19 @@
 #include "cardfactory.h"
 
 class Table {
-	Player player1;
-	Player player2;
+	vector<Player> players;
 	Deck deck;
 	DiscardPile pile;
 	TradeArea tradeArea;
-	string winner;
 
 public:
 	Table(const string& name1, const string& name2);
 	Table(istream& in, CardFactory* factory);
 	bool win(string& winner);
+	vector<Player>& getPlayers();
+	Deck& getDeck();
+	DiscardPile& getPile();
+	TradeArea& getTradeArea();
 	void print(ostream& out);
 	friend ostream& operator<<(ostream& out, Table& oTable);
 };
