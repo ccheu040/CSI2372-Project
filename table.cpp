@@ -12,11 +12,11 @@ Table::Table(istream& in, CardFactory* factory) {
 
 bool Table::win(string& winner) {
 	if (!deck.draw()) {
-		if (player1.getNumCoins() > player2.getNumCoins()) {
-			winner = player1.getName();
+		if (player1->getNumCoins() > player2->getNumCoins()) {
+			winner = player1->getName();
 		}
-		else if (player1.getNumCoins() < player2.getNumCoins()) {
-			winner = player2.getName();
+		else if (player1->getNumCoins() < player2->getNumCoins()) {
+			winner = player2->getName();
 		}
 		return true;
 	}

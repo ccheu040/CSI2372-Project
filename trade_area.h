@@ -12,7 +12,6 @@ class TradeArea {
 	list<Card*> tradeArea;
 public:
 	TradeArea(istream& in, CardFactory* factory);
-	TradeArea();
 	bool legal(const Card* card) const;
 	Card* trade(const string name);
 	int numCards() const;
