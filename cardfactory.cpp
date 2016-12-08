@@ -1,11 +1,12 @@
-#include <iostream>
 #include <random>
 #include <algorithm>
 #include "cardfactory.h"
+
 CardFactory* CardFactory::getFactory() {
 	static CardFactory factory;
 	return &factory;
 }
+
 Deck CardFactory::getDeck() {
 	Deck deck;
 
@@ -21,6 +22,7 @@ Deck CardFactory::getDeck() {
 	}
 	std::random_shuffle(deck.begin(), deck.end());
 }
+
 Card* CardFactory::createCard(const string& name) {
 	Card* card = nullptr;
 	if (name == "Quartz") {

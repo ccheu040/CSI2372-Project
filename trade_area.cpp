@@ -1,10 +1,8 @@
-#include <iostream>
 #include "trade_area.h"
 
 TradeArea::TradeArea(istream& in, CardFactory* factory) {
 	
 }
-
 
 bool TradeArea::legal(const Card* card) const {
 	for (list<Card*>::const_iterator iter = tradeArea.begin(); iter != tradeArea.end(); ++iter) {
@@ -31,12 +29,17 @@ int TradeArea::numCards() const {
 	return tradeArea.size();
 }
 
+list<Card*>& TradeArea::getCards(){
+	return tradeArea;
+}
+
 TradeArea& TradeArea::operator+=(Card* card) {
 	tradeArea.push_back(card);
 	return *this;
 }
 
 ostream& operator<<(ostream& out, const TradeArea& oTrade) {
+	out << "Trade Area" << "\t";
 	for (list<Card*>::const_iterator iter = oTrade.tradeArea.begin(); iter != oTrade.tradeArea.end(); ++iter) {
 		out << **iter << " ";
 	}

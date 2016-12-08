@@ -5,17 +5,6 @@ DiscardPile::DiscardPile(istream& in, CardFactory* factory) {
 	
 }
 
-DiscardPile::DiscardPile() {
-
-
-
-}
-DiscardPile::DiscardPile(vector<Card*> card) {
-	for (int i = 0; i < card.size(); i++) {
-		pile.push_back(card[i]);
-	}
-}
-
 Card* DiscardPile::pickUp() {
 	Card* back = pile.back();
 	pile.pop_back();
@@ -24,6 +13,10 @@ Card* DiscardPile::pickUp() {
 
 Card* DiscardPile::top() const {
 	return pile.back();
+}
+
+vector<Card*>& DiscardPile::getCards() {
+	return pile;
 }
 
 void DiscardPile::print(ostream& out) const {

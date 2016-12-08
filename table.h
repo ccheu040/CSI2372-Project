@@ -9,21 +9,22 @@
 #include "trade_area.h"
 #include "cardfactory.h"
 
-using std::istream;
-using std::ostream;
-
-using std::vector;
 class Table {
-	Player* player1;
-	Player* player2;
-	Deck* deck;
-	string winner;
-public:
+	vector<Player> players;
+	Deck deck;
+	DiscardPile pile;
+	TradeArea tradeArea;
 
+public:
+	Table() {};
 	Table(const string& name1, const string& name2);
-	Table(istream&, CardFactory*);
-	bool win(string&);
-	void print(ostream&);
+	Table(istream& in, CardFactory* factory);
+	bool win(string& winner);
+	vector<Player>& getPlayers();
+	Deck& getDeck();
+	DiscardPile& getPile();
+	TradeArea& getTradeArea();
+	void print(ostream& out);
 	friend ostream& operator<<(ostream& out, Table& oTable);
 };
 #endif
