@@ -4,8 +4,7 @@ class CardFactory;
 
 #include <queue>
 #include "card_hierarchy.h"
-#include <vector>
-using std::vector;
+
 using std::queue;
 using std::istream;
 using std::ostream;
@@ -14,9 +13,8 @@ class Hand {
 	queue<Card*> hand;
 
 public:
+	Hand() = default;
 	Hand(istream& in, CardFactory* factory);
-	Hand();
-	Hand(vector<Card*>);
 	Card* play();
 	Card* top() const;
 	Hand& operator+=(Card* card);

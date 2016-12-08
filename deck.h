@@ -11,10 +11,11 @@ using std::ostream;
 
 class Deck {
 	vector<Card*> cards;
+
 public:
-	Deck();
+	Deck() = default;
 	Deck(istream& in, CardFactory* factory);
-	Deck(vector<Card*>);
+	Deck(vector<Card*> card);
 	Card* draw();
 	friend ostream& operator<<(ostream& out, const Deck& oDeck);
 };

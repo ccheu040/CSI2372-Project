@@ -1,10 +1,4 @@
 #include "deck.h"
-#include <iostream>
-
-Deck::Deck() {
-}
-
-
 
 Deck::Deck(istream& in, CardFactory* factory) {
 	

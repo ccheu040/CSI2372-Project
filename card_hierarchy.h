@@ -7,10 +7,15 @@ using std::string;
 using std::ostream;
 
 class Card {
+private:
+	Card(const Card& card) {};
+	Card& operator=(const Card& card) {};
+
 public:
+	Card() = default;
 	virtual int getCoinsPerCard(const int cards) const = 0;
 	virtual string getName() const = 0;
-	virtual void print(ostream& out) const = 0;
+	virtual void print(ostream& out) = 0;
 
 	friend ostream& operator<<(ostream& out, Card& c) {
 		out << c.getName();

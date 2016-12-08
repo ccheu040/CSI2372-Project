@@ -1,7 +1,5 @@
 #include "player.h"
 
-using std::string;
-
 Player::Player(string& name) : name(name), coins(0), maxNumChain(2) {}
 
 Player::Player(istream& in, CardFactory* factory){
@@ -37,12 +35,12 @@ void Player::buyThirdChain() {
 	if (maxNumChain == 3) {
 		std::cout << "You already have three chains" << std::endl;
 	}
-	else if (coins < 2) {
+	else if (coins < 3) {
 		std::cout << "You do not have enough coins" << std::endl;
 	}
 	else {
 		maxNumChain = 3;
-		coins = coins - 2;
+		coins = coins - 3;
 	}
 }
 	
