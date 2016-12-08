@@ -31,11 +31,11 @@ public:
 
 
 template <class T>
-class Chain::public Chain_Base {
+class Chain : public Chain_Base {
 	vector<T*> chain;
 
 public:
-	Chain(const T* t);
+	Chain(T* t);
 	Chain(istream& in, CardFactory* factory);
 	int sell() const;
 	int getNumCards() const;
@@ -43,13 +43,13 @@ public:
 };
 
 template <class T>
-Chain<T>::Chain(const T* t) : Chain_Base(t->getName()) {
+Chain<T>::Chain(T* t) : Chain_Base(t->getName()) {
 	chain.push_back(t);
 }
 
 
 template <class T>
-Chain<T>::Chain(istream& in, CardFactory* factory) const {
+Chain<T>::Chain(istream& in, CardFactory* factory) {
 	int numCards;
 	string chainCard;
 	while (in.good()) {
