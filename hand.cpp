@@ -41,6 +41,7 @@ Card* Hand::operator[](const int index) {
 }
 
 ostream& operator<<(ostream& out, Hand& oHand) {
+	out << "Hand" << "\t";
 	for (int i = 0; i < oHand.hand.size(); ++i) {
 		out << *(oHand.hand.front()) << " ";
 		oHand.hand.push(oHand.hand.front());
