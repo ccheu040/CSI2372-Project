@@ -39,7 +39,7 @@ Chain<T>::Chain(istream& in, CardFactory* factory) const {
 
 template <class T>
 int Chain<T>::sell() const {
-	return T[0]->getCoinsPerCard(chain.size());
+	return chain[0]->getCoinsPerCard(chain.size());
 }
 
 template <class T>
