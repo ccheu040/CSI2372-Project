@@ -6,18 +6,22 @@
 #include "discard_pile.h"
 #include "trade_area.h"
 
-class Table {
-	Player player1;
-	Player player2;
-	Deck deck;
-	DiscardPile pile;
-	TradeArea tradeArea;
-	string winner;
+using std::istream;
+using std::ostream;
 
+using std::vector;
+class Table {
+	Player* player1;
+	Player* player2;
+	Deck* deck;
+	string winner;
+	vector<Card*> cards;
 public:
-	Table(istream&, CardFactory* factory);
-	bool win(string& winner);
-	void print(ostream& out);
-	friend ostream& operator<<(ostream& out, Table& oTable);
+	Table(istream&, CardFactory*);
+	Table();
+	Table(vector<Card*>);
+	Table(Player* player1, Player* player2, Deck* deck, DiscardPile* discardPile, TradeArea* tradeArea);
+	bool win(string&);
+	void print(ostream&);
 };
 #endif

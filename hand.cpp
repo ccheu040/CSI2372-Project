@@ -1,11 +1,23 @@
-#include <vector>
+#include <iostream>
 #include "hand.h"
+#include <vector>
 
 using std::vector;
 
 Hand::Hand(istream& in, CardFactory* factory) {
+	
+}
+
+Hand::Hand() {
+
 
 }
+Hand::Hand(vector<Card*> card) {
+	for (int i = 0; i < card.size(); i++) {
+		hand.push(card[i]);
+	}
+}
+
 
 Card* Hand::play() {
 	Card* card = hand.front();

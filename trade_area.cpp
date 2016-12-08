@@ -1,8 +1,22 @@
+#include <iostream>
 #include "trade_area.h"
 
 TradeArea::TradeArea(istream& in, CardFactory* factory) {
+	
+}
+
+TradeArea::TradeArea() {
+
+
 
 }
+TradeArea::TradeArea(vector<Card*> card) {
+	for (int i = 0; i < card.size(); i++) {
+		tradeArea.push_back(card[i]);
+	}
+}
+
+
 
 bool TradeArea::legal(const Card* card) const {
 	for (list<Card*>::const_iterator iter = tradeArea.begin(); iter != tradeArea.end(); ++iter) {
