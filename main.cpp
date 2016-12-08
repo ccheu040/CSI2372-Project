@@ -1,10 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 #include <cstring>
 #include <sstream>
-#include <queue>
 #include "cardfactory.h"
 #include "chain.h"
 #include "deck.h"
@@ -14,140 +12,335 @@
 #include "player.h"
 #include "table.h"
 #include "trade_area.h"
-
 using std::vector;
 using std::string;
 using std::cout;
 using std::endl;
 using std::cin;
-main() {
+
+int main() {
+
 	int selection;
-	bool pausegame = false;
-	Deck* deck;
-	CardFactory* factory;
-	DiscardPile* pile;
-	TradeArea* TradeArea;
-	Table* table;
-	Player* player1;
-	Player* player2;
-	queue<string> lastGame;
 	cout << "Do you want to load a pause game?" << endl;
 	cout << "If you want, enter 1; else, enter 2" << endl;
 	cin >> selection;
 	if (selection == 1) {
-		
-		lastGame = loadfile();
+		CardFactory* factory;
+		std::ifstream file("saveGame.txt");
+		string line = "";
+		if (file) {
+			Player(std::getline(file, line), factory);
+			Deck(std::getline(file, line), factory);
+			DiscardPile(std::getline(file, line), factory);
+			TradeArea(std::getline(file, line), factory);
+		}
 	}
 	else {
-		factory = start_newGame();
-	}
-	while (deck.size() > 0) {
-		if (pausegame) pauseGame(player1, player2, deck, pile, TradeArea);
-	}
-}
 
-queue<string> loadfile() {
-	queue<string> s;
-	string line;
-	std::ifstream file;
-	file.open("SavingGame.txt");
-	while (getline(file, line)) {
-		s.push(line);
-	}
-	return s;
-}
+		string name1, name2, input;
+		bool pause = false;
 
-void pauseGame(Player* player1, Player* player2, Deck* deck, DiscardPile* discardPile, TradeArea* tradeArea) {
-	std::ofstream file;
-	file.open("SavingGame.txt");
-	string s = player1->getName();
-	file << s;
-	queue<Card*> cards = player1->getHand()->getHandCard();
-	Card* card;
-	while (!cards.empty()) {
-		card = cards.pop();
-		file << card->getName();
-	}
-	s = player2->getName();
-	file << s;
-	while (!cards.empty()) {
-		card= cards.pop();
-		file << card->getName();
-	}
-	cards = deck->getDeckCard();
-	while (!cards.empty()) {
-		card = cards.pop();
-		file << card->getName();
-	}
-	cards = discardPile->getPileCard();
-	while (!cards.empty()) {
-		card = cards.pop();
-		file << card->getName();
-	}
-	list<Card*> car = tradeArea->getTradeAreaCard();
-	while (!cards.empty()) {
-		card = car.pop_front();
-		file << card->getName();
-	}
-	file.close();
-}
+		cout << "Enter Player1's name:" << endl;
+		getline(cin, name1);
+		cout << "Enter Player2's name:" << endl;
+		getline(cin, name2);
 
-CardFactory start_newGame() {
-	CardFactory factory;
-	string player1_name;
-	string player2_name;
-	cout << "Now, Let's play new game" << std::endl;
-	cout << "Please enter player 1 's name" << endl;
-	cin >> player1_name;
-	cout << "Please enter player 2 's name" << endl;
-	cin >> player2_name;
-	Player player1(player1_name);
-	Player player2(player2_name);
-	CardFactory();
-	//to do create game
+		Table table = Table(name1, name2);
+		vector<Player>& players = table.getPlayers();
+		Deck& deck = table.getDeck();
+		DiscardPile& pile = table.getPile();
+		TradeArea& tradeArea = table.getTradeArea();
 
-
-
-	return factory;
-}
-
-/*vector<Card*> stringToCard(string stringCard) {
-	vector<Card*> cards;
-	Quartz* Quartz;
-	Hematite* Hematite;
-	Obsidian* Obsidian;
-	Malachite* Malachite;
-	Turquoise* Turquoise;
-	Ruby* Ruby;
-	Amethyst* Amethyst;
-	Emerald* Emerald;
-	char *charCards = new char[stringCard.length() + 1];
-	std::strcpy(charCards, stringCard.c_str());
-	for (int i = 0; i < stringCard.length() + 1; i++) {
-		if (&charCards[i] == "Q") {
-			cards.push_back(Quartz);
+		while (!deck.empty()) {
+			if (pause) {
+				break;
 			}
-		else if (&charCards[i] == "A") {
-			cards.push_back(Amethyst);
-		}
-		else if (&charCards[i] == "H") {
-			cards.push_back(Hematite);
-		}
-		else if (&charCards[i] == "O") {
-			cards.push_back(Obsidian);
-		}
-		else if (&charCards[i] == "M") {
-			cards.push_back(Malachite);
-		}
-		else if (&charCards[i] == "T") {
-			cards.push_back(Turquoise);
-		}
-		else if (&charCards[i] == "R") {
-			cards.push_back(Ruby);
-		}
-		else if (&charCards[i] == "E") {
-			cards.push_back(Emerald);
+
+			for (auto& player : players) {
+				cout << "It is " << player.getName() << "'s turn." << endl;
+				cout << table;
+
+				if (player.getNumCoins() >= 3 && player.getMaxNumChains() == 2) {
+					cout << "Do you want to buy a third chain? [Y/N]" << endl;
+					getline(cin, input);
+					while (input != "Y" && input != "y" && input != "N" && input != "n") {
+						cout << "Please enter a valid response." << endl;
+						cout << "Do you want to buy a third chain? [Y/N]" << endl;
+						getline(cin, input);
+					}
+					if (input == "Y" || input == "y") {
+						player.buyThirdChain();
+					}
+				}
+
+				cout << "Drawing card from deck." << endl;
+				player.getHand() += deck.draw();
+
+				while (tradeArea.numCards() != 0) {
+					bool played = false;
+					Card* card = tradeArea.trade(tradeArea.getCards().front()->getName());
+					// Add cards to chain or discard
+					for (int i = 0; i < player.getNumChains; ++i) {
+						Chain_Base* chain = &player[i];
+						if (card->getName() == chain->getChainType()) {
+							cout << "Adding " << card->getName() << " from trade area to chain." << endl;
+							if (card->getName() == "Quartz") {
+								dynamic_cast<Chain<Quartz>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Hematite") {
+								dynamic_cast<Chain<Hematite>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Obsidian") {
+								dynamic_cast<Chain<Obsidian>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Malachite") {
+								dynamic_cast<Chain<Malachite>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Turquoise") {
+								dynamic_cast<Chain<Turquoise>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Ruby") {
+								dynamic_cast<Chain<Ruby>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Amethyst") {
+								dynamic_cast<Chain<Amethyst>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Emerald") {
+								dynamic_cast<Chain<Emerald>*>(chain)->operator+=(card);
+							}
+							played = true;
+							break;
+						}
+					}
+					if (!played) {
+						if (player.getNumChains() < player.getMaxNumChains()) {
+							cout << "Do you want to start a new chain for " << card->getName() << "? [Y/N]" << endl;
+							getline(cin, input);
+							while (input != "Y" && input != "y" && input != "N" && input != "n") {
+								cout << "Please enter a valid response." << endl;
+								cout << "Do you want to start a new chain for " << card->getName() << "? [Y/N]" << endl;
+								getline(cin, input);
+							}
+							if (input == "Y" || input == "y") {
+								cout << "Adding " << card->getName() << " to empty chain." << endl;
+								if (card->getName() == "Quartz") {
+									player.getChains().push_back(new Chain<Quartz>(dynamic_cast<Quartz*>(card)));
+								}
+								else if (card->getName() == "Hematite") {
+									player.getChains().push_back(new Chain<Hematite>(dynamic_cast<Hematite*>(card)));
+								}
+								else if (card->getName() == "Obsidian") {
+									player.getChains().push_back(new Chain<Obsidian>(dynamic_cast<Obsidian*>(card)));
+								}
+								else if (card->getName() == "Malachite") {
+									player.getChains().push_back(new Chain<Malachite>(dynamic_cast<Malachite*>(card)));
+								}
+								else if (card->getName() == "Turquoise") {
+									player.getChains().push_back(new Chain<Turquoise>(dynamic_cast<Turquoise*>(card)));
+								}
+								else if (card->getName() == "Ruby") {
+									player.getChains().push_back(new Chain<Ruby>(dynamic_cast<Ruby*>(card)));
+								}
+								else if (card->getName() == "Amethyst") {
+									player.getChains().push_back(new Chain<Amethyst>(dynamic_cast<Amethyst*>(card)));
+								}
+								else if (card->getName() == "Emerald") {
+									player.getChains().push_back(new Chain<Emerald>(dynamic_cast<Emerald*>(card)));
+								}
+							}
+							else {
+								cout << "Discarding " << card->getName() << "." << endl;
+							}
+						}
+					}
+				}
+
+				cout << "Top card: " << player.getHand().top() << endl;
+
+				do {
+					bool played = false;
+					Card* card = player.getHand().play();
+					for (int i = 0; i < player.getNumChains(); ++i) {
+						Chain_Base* chain = &player[i];
+
+						if (card->getName() == chain->getChainType()) {
+							cout << "Card will be added to existing chain at index " << i << "." << endl;
+							// Add card
+							if (card->getName() == "Quartz") {
+								dynamic_cast<Chain<Quartz>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Hematite") {
+								dynamic_cast<Chain<Hematite>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Obsidian") {
+								dynamic_cast<Chain<Obsidian>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Malachite") {
+								dynamic_cast<Chain<Malachite>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Turquoise") {
+								dynamic_cast<Chain<Turquoise>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Ruby") {
+								dynamic_cast<Chain<Ruby>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Amethyst") {
+								dynamic_cast<Chain<Amethyst>*>(chain)->operator+=(card);
+							}
+							else if (card->getName() == "Emerald") {
+								dynamic_cast<Chain<Emerald>*>(chain)->operator+=(card);
+							}
+							played = true;
+							break;
+						}
+					}
+					if (!played) {
+						if (player.getNumChains() < player.getMaxNumChains()) {
+							cout << "Card will be added to empty chain at index " << player.getNumChains() << "." << endl;
+							// Add card to new chain
+							if (card->getName() == "Quartz") {
+								player.getChains().push_back(new Chain<Quartz>(dynamic_cast<Quartz*>(card)));
+							}
+							else if (card->getName() == "Hematite") {
+								player.getChains().push_back(new Chain<Hematite>(dynamic_cast<Hematite*>(card)));
+							}
+							else if (card->getName() == "Obsidian") {
+								player.getChains().push_back(new Chain<Obsidian>(dynamic_cast<Obsidian*>(card)));
+							}
+							else if (card->getName() == "Malachite") {
+								player.getChains().push_back(new Chain<Malachite>(dynamic_cast<Malachite*>(card)));
+							}
+							else if (card->getName() == "Turquoise") {
+								player.getChains().push_back(new Chain<Turquoise>(dynamic_cast<Turquoise*>(card)));
+							}
+							else if (card->getName() == "Ruby") {
+								player.getChains().push_back(new Chain<Ruby>(dynamic_cast<Ruby*>(card)));
+							}
+							else if (card->getName() == "Amethyst") {
+								player.getChains().push_back(new Chain<Amethyst>(dynamic_cast<Amethyst*>(card)));
+							}
+							else if (card->getName() == "Emerald") {
+								player.getChains().push_back(new Chain<Emerald>(dynamic_cast<Emerald*>(card)));
+							}
+						}
+						else {
+							cout << "There are no available chains to add the card." << endl;
+							// print existing chains
+							cout << player;
+							cout << "Which chain would you like to sell? [1-" << player.getNumChains() << "]" << endl;
+							int index;
+							cin >> index;
+							while (index < 1 || index > player.getNumChains()) {
+								cout << "Please enter a valid number." << endl;
+								cout << "Which chain would you like to sell? [1-" << player.getNumChains() << "]" << endl;
+								cin >> index;
+							}
+							int coins = player[index - 1].sell();
+							player.getChains().erase(player.getChains().begin() + index - 1);
+							player += coins;
+							cout << player;
+							// Add card
+							cout << "Card will be added to empty chain at index " << player.getNumChains() << "." << endl;
+							if (card->getName() == "Quartz") {
+								player.getChains().push_back(new Chain<Quartz>(dynamic_cast<Quartz*>(card)));
+							}
+							else if (card->getName() == "Hematite") {
+								player.getChains().push_back(new Chain<Hematite>(dynamic_cast<Hematite*>(card)));
+							}
+							else if (card->getName() == "Obsidian") {
+								player.getChains().push_back(new Chain<Obsidian>(dynamic_cast<Obsidian*>(card)));
+							}
+							else if (card->getName() == "Malachite") {
+								player.getChains().push_back(new Chain<Malachite>(dynamic_cast<Malachite*>(card)));
+							}
+							else if (card->getName() == "Turquoise") {
+								player.getChains().push_back(new Chain<Turquoise>(dynamic_cast<Turquoise*>(card)));
+							}
+							else if (card->getName() == "Ruby") {
+								player.getChains().push_back(new Chain<Ruby>(dynamic_cast<Ruby*>(card)));
+							}
+							else if (card->getName() == "Amethyst") {
+								player.getChains().push_back(new Chain<Amethyst>(dynamic_cast<Amethyst*>(card)));
+							}
+							else if (card->getName() == "Emerald") {
+								player.getChains().push_back(new Chain<Emerald>(dynamic_cast<Emerald*>(card)));
+							}
+						}
+					}
+					cout << "Top card: " << player.getHand().top() << endl;
+					cout << "Would you like to play this card? [Y/N]" << endl;
+					getline(cin, input);
+					while (input != "Y" && input != "y" && input != "N" && input != "n") {
+						cout << "Please enter a valid response." << endl;
+						cout << "Would you like to play this card? [Y/N]" << endl;
+						getline(cin, input);
+					}
+				} while (input == "Y" || input == "y");
+			}
 		}
 	}
-	return cards;
-}*/
+}
+
+
+
+
+void pauseGame(Table table) {
+	vector<Player>& players = table.getPlayers();
+	Deck& deck = table.getDeck();
+	DiscardPile& pile = table.getPile();
+	TradeArea& tradeArea = table.getTradeArea();
+	std::ofstream ofs("saveGame.txt");
+	string s = players.front().getName();
+	ofs << s;
+	ofs << "/";
+	while (!players.front().getHand().getHandCard().empty()) {
+		string n= players.front().getHand().getHandCard().front()->getName();
+		players.front().getHand().getHandCard().pop();
+		ofs << n << " ";
+	}
+	ofs << "/";
+	while (!players.front().getChains().empty()) {
+		string n = players.front().getChains().back()->getChainType();
+		int t = players.front().getChains().back()->getNumCards();
+		players.front().getChains().pop_back();
+		ofs << n << t <<" ";
+	}
+	ofs << "\n";
+	s = players.back().getName();
+	ofs << s;
+	ofs << "/";
+	while (!players.back().getHand().getHandCard().empty()) {
+		string n = players.back().getHand().getHandCard().front()->getName();
+		players.back().getHand().getHandCard().pop();
+		ofs << n << " ";
+	}
+	ofs << "/";
+	while (!players.back().getChains().empty()) {
+		string n = players.back().getChains().back()->getChainType();
+		int t = players.back().getChains().back()->getNumCards();
+		players.back().getChains().pop_back();
+		ofs << n << t <<" ";
+	}
+	ofs << "\n";
+	while (!deck.empty()) {
+		string c = deck.back()->getName();
+		deck.pop_back();
+		ofs << c;
+	}
+	ofs << "\n";
+	while (!pile.getPileCard().empty()) {
+		string p = pile.getPileCard().back()->getName();
+		pile.getPileCard().pop_back();
+		ofs << p;
+	}
+	ofs << "\n";
+	while (!tradeArea.getCards().empty()) {
+		string t = tradeArea.getCards().front()->getName();
+		tradeArea.getCards().pop_front();
+		ofs << t;
+	}
+	ofs << "n";
+	table.print(ofs);
+}
+
+
