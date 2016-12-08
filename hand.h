@@ -13,10 +13,11 @@ class Hand {
 	queue<Card*> hand;
 
 public:
-	Hand() = default;
+	Hand() {};
 	Hand(istream& in, CardFactory* factory);
 	Card* play();
 	Card* top() const;
+	int getNumCards() const;
 	Hand& operator+=(Card* card);
 	Card* operator[](const int i);
 	friend ostream& operator<<(ostream& out, Hand& oHand);

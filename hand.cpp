@@ -17,6 +17,10 @@ Card* Hand::top() const {
 	return hand.front();
 }
 
+int Hand::getNumCards() const {
+	return hand.size();
+}
+
 Hand& Hand::operator+=(Card* card) {
 	hand.push(card);
 	return *this;

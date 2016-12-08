@@ -90,7 +90,7 @@ int main() {
 							getline(cin, input);
 						}
 						if (input == "Y" || input == "y") {
-							cout << "Adding " << card->getName() << " to empty chain." << endl;
+							cout << "Adding " << card->getName() << " from trade area to chain." << endl;
 							if (card->getName() == "Quartz") {
 								player.getChains().push_back(new Chain<Quartz>(dynamic_cast<Quartz*>(card)));
 							}
@@ -118,13 +118,17 @@ int main() {
 						}
 						else {
 							cout << "Discarding " << card->getName() << "." << endl;
+							pile.getCards().push_back(card);
 						}
+					}
+					else {
+						cout << "Discarding " << card->getName() << "." << endl;
+						pile.getCards().push_back(card);
 					}
 				}
 			}
 
 			cout << "Top card: " << player.getHand().top() << endl;
-
 			do {
 				bool played = false;
 				Card* card = player.getHand().play();
@@ -235,15 +239,23 @@ int main() {
 						}
 					}
 				}
-				cout << "Top card: " << player.getHand().top() << endl;
-				cout << "Would you like to play this card? [Y/N]" << endl;
-				getline(cin, input);
-				while (input != "Y" && input != "y" && input != "N" && input != "n") {
-					cout << "Please enter a valid response." << endl;
+				if (player.getHand().getNumCards() != 0) {
+					cout << "Top card: " << player.getHand().top() << endl;
 					cout << "Would you like to play this card? [Y/N]" << endl;
 					getline(cin, input);
+					while (input != "Y" && input != "y" && input != "N" && input != "n") {
+						cout << "Please enter a valid response." << endl;
+						cout << "Would you like to play this card? [Y/N]" << endl;
+						getline(cin, input);
+					}
+				}
+				else {
+					cout << "You have no more cards." << endl;
+					input = "N";
 				}
 			} while (input == "Y" || input == "y");
+
+
 		}
 	}
 }
