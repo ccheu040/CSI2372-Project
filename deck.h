@@ -11,6 +11,7 @@ using std::ostream;
 
 class Deck : public vector<Card*>{
 public:
+	Deck() {};
 	Deck(istream& in, CardFactory* factory);
 	Card* draw();
 	friend ostream& operator<<(ostream& out, const Deck& oDeck);
