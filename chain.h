@@ -17,6 +17,7 @@ public:
 	string getChainType() {
 		return _dChainType;
 	}
+	virtual int sell() const = 0;
 	friend ostream& operator<<(ostream& out, Chain_Base& chain) {
 		out << chain.getChainType();
 		return out;
