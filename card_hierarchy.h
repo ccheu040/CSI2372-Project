@@ -12,7 +12,6 @@ private:
 	Card& operator=(const Card& card) {};
 
 public:
-	Card() = default;
 	virtual int getCoinsPerCard(const int cards) const = 0;
 	virtual string getName() const = 0;
 	virtual void print(ostream& out) = 0;

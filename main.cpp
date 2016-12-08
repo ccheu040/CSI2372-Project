@@ -50,7 +50,25 @@ int main() {
 				}
 			}
 
-
+			const Card* card = player.getHand().play();
+			cout << "Top card: " << card->getName() << endl;
+			for (int i = 0; i < player.getNumChains(); ++i) {
+				if (card->getName() == player[i].getChainType()) {
+					cout << "Card will be added to empty chain at index " << i << "." << endl;
+					card = nullptr;
+					break;
+				}
+			}
+			if (card) {
+				if (player.getNumChains() < player.getMaxNumChains()) {
+					cout << "Card will be added to empty chain at index " << player.getNumChains() << "." << endl;
+					// Add card to new chain
+				}
+				else {
+					cout << "There are no available chains to add the card." << endl;
+					// print existing chains
+				}
+			}
 		}
 	}
 }

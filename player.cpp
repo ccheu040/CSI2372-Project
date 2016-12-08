@@ -27,6 +27,10 @@ int Player::getNumChains() const {
 	return _dChain.size();
 }
 
+vector<Chain_Base*>& Player::getChains() {
+	return _dChain;
+}
+
 Hand& Player::getHand() {
 	return hand;
 }
@@ -47,4 +51,12 @@ void Player::printHand(ostream& out, bool p) {
 	else {
 		std::cout << hand.top() << std::endl;
 	}
+}
+
+ostream& operator<<(ostream& out, Player& player) {
+	out << player.getName() << "  " << player.getNumCoins() << " coins" << std::endl;
+	for (int i = 0; i < player._dChain.size(); i++) {
+		out << *player._dChain[i] << "\t" << ;
+	}
+	return out;
 }
