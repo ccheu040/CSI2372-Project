@@ -54,4 +54,5 @@ void Table::print(ostream& out) {
 
 ostream& operator<<(ostream& out, Table& oTable) {
 	out << oTable.players.front() << oTable.players.back() << oTable.pile << oTable.tradeArea;
+	return out;
 }

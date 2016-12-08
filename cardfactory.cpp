@@ -21,6 +21,8 @@ Deck CardFactory::getDeck() {
 		if (i<6) deck.push_back(new Emerald());
 	}
 	std::random_shuffle(deck.begin(), deck.end());
+
+	return deck;
 }
 
 Card* CardFactory::createCard(const string& name) {
