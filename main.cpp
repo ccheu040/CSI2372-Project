@@ -25,7 +25,7 @@ int main() {
 	cout << "If you want, enter 1; else, enter 2" << endl;
 	cin >> selection;
 	if (selection == 1) {
-		CardFactory* factory;
+		CardFactory* factory = CardFactory::getFactory();
 		std::ifstream file("saveGame.txt");
 		string line = "";
 		if (file) {
