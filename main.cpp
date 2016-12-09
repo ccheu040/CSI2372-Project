@@ -46,10 +46,8 @@ int main() {
 		bool pause = false;
 
 		cout << "Enter Player1's name:" << endl;
-		cin.ignore();
 		getline(cin, name1);
 		cout << "Enter Player2's name:" << endl;
-		cin.ignore();
 		getline(cin, name2);
 
 		Table table = Table(name1, name2);
