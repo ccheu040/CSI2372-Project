@@ -60,6 +60,7 @@ int main() {
 
 		while (!deck.empty()) {
 			if (pause) {
+				pauseGame(table);
 				break;
 			}
 
@@ -302,7 +303,6 @@ int main() {
 
 
 
-
 void pauseGame(Table table) {
 	vector<Player>& players = table.getPlayers();
 	Deck& deck = table.getDeck();
@@ -311,9 +311,11 @@ void pauseGame(Table table) {
 	std::ofstream ofs("saveGame.txt");
 	string s = players.front().getName();
 	ofs << s;
+	int coin = players.front().getNumCoins();
+	ofs << coin;
 	ofs << "\n";
 	while (!players.front().getHand().getHandCard().empty()) {
-		string n= (const char*)players.front().getHand().getHandCard().front()->getName().at(0);
+		string n = (const char*)players.front().getHand().getHandCard().front()->getName().at(0);
 		players.front().getHand().getHandCard().pop();
 		ofs << n;
 	}
@@ -327,6 +329,8 @@ void pauseGame(Table table) {
 	ofs << "\n";
 	s = players.back().getName();
 	ofs << s;
+	coin = players.back().getNumCoins();
+	ofs << coin;
 	ofs << "\n";
 	while (!players.back().getHand().getHandCard().empty()) {
 		string n = (const char*)players.back().getHand().getHandCard().front()->getName().at(0);
@@ -348,7 +352,7 @@ void pauseGame(Table table) {
 	}
 	ofs << "\n";
 	while (!pile.getCards().empty()) {
-		string p =(const char*)pile.getCards().back()->getName().at(0);
+		string p = (const char*)pile.getCards().back()->getName().at(0);
 		pile.getCards().pop_back();
 		ofs << p;
 	}
@@ -361,5 +365,3 @@ void pauseGame(Table table) {
 	ofs << "n";
 	table.print(ofs);
 }
-
-
