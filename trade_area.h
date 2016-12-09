@@ -18,5 +18,5 @@ public:
 	int numCards() const;
 	TradeArea& operator+=(Card* card);
 	friend ostream& operator<<(ostream& out, const TradeArea& oTradeArea);
-	list<Card*> getCards();
+	list<Card*>& getCards();
 };

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <random>
 #include <algorithm>
+#include <iterator>
 #include "cardfactory.h"
 CardFactory* CardFactory::getFactory() {
 	static CardFactory factory;
@@ -19,7 +20,9 @@ Deck CardFactory::getDeck() {
 		if (i<8) deck.push_back(new Amethyst());
 		if (i<6) deck.push_back(new Emerald());
 	}
-	std::random_shuffle(deck.begin(), deck.end());
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(deck.begin(), deck.end(), g);
 	return deck;
 }
 Card* CardFactory::createCard(const string& name) {

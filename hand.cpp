@@ -56,6 +56,11 @@ Card* Hand::top() const {
 	return hand.front();
 }
 
+
+int Hand::getNumCards() const {
+	return hand.size();
+}
+
 Hand& Hand::operator+=(Card* card) {
 	hand.push(card);
 	return *this;
@@ -76,6 +81,7 @@ Card* Hand::operator[](const int index) {
 }
 
 ostream& operator<<(ostream& out, Hand& oHand) {
+	out << "Hand\t";
 	for (int i = 0; i < oHand.hand.size(); ++i) {
 		out << *(oHand.hand.front()) << " ";
 		oHand.hand.push(oHand.hand.front());
@@ -83,7 +89,4 @@ ostream& operator<<(ostream& out, Hand& oHand) {
 	}
 	out << std::endl;
 	return out;
-}
-queue<Card*> Hand::getHandCard() {
-	return hand;
 }
