@@ -34,7 +34,7 @@ int main() {
 			Chain<class T> Chain(std::getline(file, line), factory);
 			Player(std::getline(file, line), factory);
 			Hand(std::getline(file, line), factory);
-			Chain<class T> Chain(std::getline(file, line), factory);
+			//Chain<class T> Chain(std::getline(file, line), factory);
 			Deck(std::getline(file, line), factory);
 			DiscardPile(std::getline(file, line), factory);
 			TradeArea(std::getline(file, line), factory);
@@ -46,8 +46,10 @@ int main() {
 		bool pause = false;
 
 		cout << "Enter Player1's name:" << endl;
+		cin.ignore();
 		getline(cin, name1);
 		cout << "Enter Player2's name:" << endl;
+		cin.ignore();
 		getline(cin, name2);
 
 		Table table = Table(name1, name2);
@@ -85,7 +87,7 @@ int main() {
 					bool played = false;
 					Card* card = tradeArea.trade(tradeArea.getCards().front()->getName());
 					// Add cards to chain or discard
-					for (int i = 0; i < player.getNumChains; ++i) {
+					for (int i = 0; i < player.getNumChains(); ++i) {
 						Chain_Base* chain = &player[i];
 						if (card->getName() == chain->getChainType()) {
 							cout << "Adding " << card->getName() << " from trade area to chain." << endl;

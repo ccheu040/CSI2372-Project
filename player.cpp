@@ -1,6 +1,5 @@
 
 #include "player.h"
-#include "cardfactory.h"
 
 Player::Player(const string& name) : name(name), coins(0), maxNumChain(2) {}
 

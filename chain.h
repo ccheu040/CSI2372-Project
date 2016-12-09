@@ -1,13 +1,15 @@
 #pragma once
 
-class Card;
 class CardFactory;
 
 #include <iostream>
 #include <vector>
+#include <string>
 #include "card_hierarchy.h"
+#include "cardfactory.h"
 
 using std::vector;
+using std::string;
 using std::istream;
 using std::ostream;
 
@@ -20,7 +22,7 @@ public:
 	string getChainType() {
 		return _dChainType;
 	}
-	virtual int sell() const = 0;
+	virtual int sell() = 0;
 	virtual int getNumCards() const = 0;
 	friend ostream& operator<<(ostream& out, Chain_Base& chain) {
 		out << chain.getChainType();
@@ -37,7 +39,7 @@ class Chain : public Chain_Base {
 public:
 	Chain(T* t);
 	Chain(istream& in, CardFactory* factory);
-	int sell() const;
+	int sell();
 	int getNumCards() const;
 	Chain<T>& operator+=(Card* card);
 };
@@ -49,7 +51,7 @@ Chain<T>::Chain(T* t) : Chain_Base(t->getName()) {
 
 
 template <class T>
-Chain<T>::Chain(istream& in, CardFactory* factory) {
+Chain<T>::Chain(istream& in, CardFactory* factory) : Chain_Base("") {
 	int numCards;
 	string chainCard;
 	while (in.good()) {
@@ -60,50 +62,50 @@ Chain<T>::Chain(istream& in, CardFactory* factory) {
 		chainCard.pop_back();
 		if ((const char*)chainCard.back() == "Q") {
 			for (int i = 0; i < numCards; i++) {
-				chain.insert().(factory->createCard("Quartz"));
+				*this += factory->createCard("Quartz");
 			}
 			chainCard.pop_back();
 		}
 		else if ((const char*)chainCard.back() == "H") {
 			for (int i = 0; i < numCards; i++) {
-				chain.insert().(factory->createCard("Hematite"));
+				*this += factory->createCard("Hematite");
 			}
 			chainCard.pop_back();
 		}
 		else if ((const char*)chainCard.back() == "O") {
 			for (int i = 0; i < numCards; i++) {
-				chain.insert().(factory->createCard("Obsidian"));
+				*this += factory->createCard("Obsidian");
 			}
 			chainCard.pop_back();
 		}
 		else if ((const char*)chainCard.back() == "M") {
 			for (int i = 0; i < numCards; i++) {
-				chain.insert().(factory->createCard("Malachite"));
+				*this += factory->createCard("Malachite");
 			}
 			chainCard.pop_back();
 		}
 		else if ((const char*)chainCard.back() == "T") {
 			for (int i = 0; i < numCards; i++) {
-				chain.insert().(factory->createCard("Turquoise"));
+				*this += factory->createCard("Turquoise");
 			}
 			chainCard.pop_back();
 		}
 		else if ((const char*)chainCard.back() == "R") {
 			for (int i = 0; i < numCards; i++) {
-				chain.insert().(factory->createCard("Ruby"));
+				*this += factory->createCard("Ruby");
 			}
 			chainCard.pop_back();
 
 		}
 		else if ((const char*)chainCard.back() == "A") {
 			for (int i = 0; i < numCards; i++) {
-				chain.insert().(factory->createCard("Amethyst"));
+				*this += factory->createCard("Amethyst");
 			}
 			chainCard.pop_back();
 		}
 		else if ((const char*)chainCard.back() == "E") {
 			for (int i = 0; i < numCards; i++) {
-				chain.insert().(factory->createCard("Emerald"));
+				*this += factory->createCard("Emerald");
 			}
 			chainCard.pop_back();
 		}
@@ -111,7 +113,7 @@ Chain<T>::Chain(istream& in, CardFactory* factory) {
 }
 
 template <class T>
-int Chain<T>::sell() const {
+int Chain<T>::sell() {
 	return chain[0]->getCoinsPerCard(chain.size());
 }
 

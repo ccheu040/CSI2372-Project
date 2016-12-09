@@ -1,11 +1,12 @@
 #ifndef _Player_h_
 #define _Player_h_
 
-#include "chain.h"
-#include "hand.h"
 #include <iostream>
 #include <string>
 #include <vector>
+#include "chain.h"
+#include "hand.h"
+#include "cardfactory.h"
 
 using std::istream;
 using std::ostream;
